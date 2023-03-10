@@ -71,7 +71,7 @@ function calcular() {
         const pesc = escritorio
         const ppar = parceiro
         const ppar2 = parceiro2
-        const plivre = (100 - (escritorio + parceiro + parceiro2));
+        const plivre = (100 - (escritorio + parceiro + parceiro2)).toFixed(2);
 
         // Inicio da conversão de datas
 
