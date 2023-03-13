@@ -15,19 +15,18 @@ body {
   background: var(--primary-color);
   font-family: 'Open sans', sans-serif;
   font-size: 1.3em;
-  line-height: 1.3em;
+  line-height: 1.0em;
 }
 
 .container {
-  max-width: 640px;
+  max-width: 750px;
   margin: 50px auto;
   background: #fff;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
 }
 
 form input, form label, form button {
-  /* display: block; */
   width: 100%;
   margin-bottom: 0.5px;
 }
@@ -69,4 +68,8 @@ form button:hover {
 
 .bad {
   background: rgb(255, 150, 150);
+}
+
+.styledata {
+  display: flex;
 }
