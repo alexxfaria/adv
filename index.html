@@ -1,46 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Honorários</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Honorários</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <section class="container">
+  <section class="container">
     <form class="forme" action="" method="get">
-        <p>N° do processo: <input type="text" class="nprocesso"></p>
-        <p>Cliente: <input type="text" class="cliente"></p>
-        <p><label for="viaa">Via:</label>
-            <select name="via" id="via" class="via">
-                <option value="Administrativo">Administrativo</option>
-                <option value="Judicial">Judicial</option>
-            </select></p>
-        <div class="styledata"><p>DER: <input type="date" class="der" placeholder="Ex.: dd/mm/aaaa" data-mask="00/00/0000" maxlength="10" autocomplete="off"></p>
-        <p>DIB: <input type="date" class="dib"></p>
-        <p>DIP: <input type="date" class="dip"></p>
-        </div>
-        <div class="styledata"><p>Valor da causa: <input type="number" step=0.01 class="vcausa" onKeyUp="mascaraMoeda(this, event)"></p>
-        <p>Sentença: <input type="number" step=0.01 class="vsentenca" onKeyUp="mascaraMoeda(this, event)"></p>
-        </div>
-        <div class="styledata"><p>% Ação: <input type="number" step=0.01 class="acao" value="30"></p>
-        <p>Meses: <input type="number" class="meses" value="3"></p>
-        <p>Valor meses: <input type="number" class="vmeses" onKeyUp="mascaraMoeda(this, event)"></p>
-        </div>
-        <p>Desconto: <input type="number" step=0.01 class="desc" onKeyUp="mascaraMoeda(this, event)"></p>
-        <p class="styledata">Parceiro: <input type="text" class="nomeparceiro">%<input type="number" step=0.01 class="parceiro" value="50"></p>
-        <p class="styledata">Parceiro: <input type="text" class="nomeparceiro2">%<input type="number" step=0.01 class="parceiro2"></p>
-        <p>% Escritorio: <input type="number" step=0.01 class="escritorio" value="20"></p>
-         <button>Resultado</button>
-        </form>
-        <div id="resultado"></div>
-        <div class="styledata"><button onClick="printDIV('resultado')">Imprimir honorarios</button>
-        <div id="resultadoCliente"></div>
-        <button onClick="printDIV('resultadoCliente')">Imprimir Cliente</button>
-        </div>
 
-        </section>
-    <script src="./scripts.js"></script>
+      <div class="section-title">Dados do processo</div>
+      <p>N° do processo: <input type="text" class="nprocesso" /></p>
+      <p>Cliente: <input type="text" class="cliente" /></p>
+      <p>
+        <label for="viaa">Via:</label>
+        <select name="via" id="via" class="via">
+          <option value="Administrativo">Administrativo</option>
+          <option value="Judicial">Judicial</option>
+        </select>
+      </p>
+
+      <div class="section-title">Datas</div>
+      <div class="styledata">
+        <p>DER: <input type="date" class="der" placeholder="Ex.: dd/mm/aaaa" data-mask="00/00/0000" maxlength="10" autocomplete="off" /></p>
+        <p>DIB: <input type="date" class="dib" /></p>
+        <p>DIP: <input type="date" class="dip" /></p>
+      </div>
+
+      <div class="section-title">Valores principais</div>
+      <div class="styledata">
+        <p>Valor da causa: <input type="number" step="0.01" class="vcausa" onKeyUp="mascaraMoeda(this, event)" /></p>
+        <p>Sentença: <input type="number" step="0.01" class="vsentenca" onKeyUp="mascaraMoeda(this, event)" /></p>
+      </div>
+
+      <div class="styledata">
+        <p>% Ação: <input type="number" step="0.01" class="acao" value="30" /></p>
+        <p>Meses: <input type="number" class="meses" value="3" /></p>
+        <p>Valor meses: <input type="number" class="vmeses" onKeyUp="mascaraMoeda(this, event)" /></p>
+      </div>
+
+      <div class="section-title">Descontos e divisões</div>
+      <p>Desconto: <input type="number" step="0.01" class="desc" onKeyUp="mascaraMoeda(this, event)" /></p>
+
+      <div class="styledata">
+        <p>Parceiro: <input type="text" class="nomeparceiro" placeholder="Nome" /></p>
+        <p>% <input type="number" step="0.01" class="parceiro" value="50" /></p>
+      </div>
+
+      <div class="styledata">
+        <p>Parceiro: <input type="text" class="nomeparceiro2" placeholder="Nome" /></p>
+        <p>% <input type="number" step="0.01" class="parceiro2" /></p>
+      </div>
+
+      <p>% Escritório: <input type="number" step="0.01" class="escritorio" value="20" /></p>
+
+      <button type="submit">Resultado</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <div class="styledata">
+      <button class="print-btn" onClick="printDIV('resultado')">Imprimir honorários</button>
+      <button class="print-btn" onClick="printDIV('resultadoCliente')">Imprimir Cliente</button>
+    </div>
+
+    <div id="resultadoCliente"></div>
+  </section>
+
+  <script src="./scripts.js"></script>
 </body>
 </html>
