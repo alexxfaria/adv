@@ -4,14 +4,14 @@
 
     <fieldset>
       <legend>Informações do Processo</legend>
-      <label for="nprocesso">Número do Processo</label>
-      <input type="text" class="nprocesso" id="nprocesso" placeholder="0000.0000">
+      <label>Número do Processo</label>
+      <input type="text" class="nprocesso" placeholder="0000.0000">
 
-      <label for="cliente">Cliente</label>
-      <input type="text" class="cliente" id="cliente" placeholder="Nome do cliente">
+      <label>Cliente</label>
+      <input type="text" class="cliente" placeholder="Nome do cliente">
 
-      <label for="via">Via</label>
-      <select class="via" id="via">
+      <label>Via</label>
+      <select class="via">
         <option value="Administrativa">Administrativa</option>
         <option value="Judicial">Judicial</option>
       </select>
@@ -19,62 +19,82 @@
 
     <fieldset>
       <legend>Datas</legend>
-      <div class="styledata">
-        <div style="flex:1">
-          <label for="der">DER</label>
-          <input type="date" class="der" id="der">
+      <div class="grid-3">
+        <div>
+          <label>DER</label>
+          <input type="date" class="der">
         </div>
-        <div style="flex:1">
-          <label for="dib">DIB</label>
-          <input type="date" class="dib" id="dib">
+        <div>
+          <label>DIB</label>
+          <input type="date" class="dib">
         </div>
-        <div style="flex:1">
-          <label for="dip">DIP</label>
-          <input type="date" class="dip" id="dip">
+        <div>
+          <label>DIP</label>
+          <input type="date" class="dip">
         </div>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>Valores</legend>
-      <label for="vcausa">Valor da Causa</label>
-      <input type="text" class="vcausa" id="vcausa" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
+      <label>Valor da Causa</label>
+      <input type="text" class="vcausa" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
 
-      <label for="vsentenca">Valor da Sentença</label>
-      <input type="text" class="vsentenca" id="vsentenca" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
+      <label>Valor da Sentença</label>
+      <input type="text" class="vsentenca" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
 
-      <label for="acao">% da Ação</label>
-      <input type="text" class="acao" id="acao" placeholder="ex: 30">
-
-      <label for="desc">Desconto</label>
-      <input type="text" class="desc" id="desc" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
+      <div class="grid-2">
+        <div>
+          <label>% da Ação</label>
+          <input type="text" class="acao" placeholder="ex: 30">
+        </div>
+        <div>
+          <label>Desconto</label>
+          <input type="text" class="desc" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
+        </div>
+      </div>
     </fieldset>
 
     <fieldset>
       <legend>Parcelas</legend>
-      <label for="meses">Quantidade de Meses</label>
-      <input type="number" class="meses" id="meses">
-
-      <label for="vmeses">Valor Mensal</label>
-      <input type="text" class="vmeses" id="vmeses" onkeyup="mascaraMoeda(this, event)">
+      <div class="grid-2">
+        <div>
+          <label>Quantidade de Meses</label>
+          <input type="number" class="meses">
+        </div>
+        <div>
+          <label>Valor Mensal</label>
+          <input type="text" class="vmeses" onkeyup="mascaraMoeda(this, event)">
+        </div>
+      </div>
     </fieldset>
 
     <fieldset>
       <legend>Distribuição</legend>
-      <label for="escritorio">% Escritório</label>
-      <input type="number" class="escritorio" id="escritorio" placeholder="ex: 30">
+      <div class="grid-2">
+        <div>
+          <label>% Escritório</label>
+          <input type="number" class="escritorio" placeholder="ex: 30">
+        </div>
+        <div>
+          <label>Nome do Parceiro</label>
+          <input type="text" class="nomeparceiro" placeholder="Fulano">
+        </div>
+      </div>
 
-      <label for="nomeparceiro">Nome do Parceiro</label>
-      <input type="text" class="nomeparceiro" id="nomeparceiro" placeholder="Fulano">
+      <div class="grid-2">
+        <div>
+          <label>% do Parceiro</label>
+          <input type="number" class="parceiro" placeholder="ex: 10">
+        </div>
+        <div>
+          <label>Nome do Segundo Parceiro</label>
+          <input type="text" class="nomeparceiro2" placeholder="Ciclano">
+        </div>
+      </div>
 
-      <label for="parceiro">% do Parceiro</label>
-      <input type="number" class="parceiro" id="parceiro" placeholder="ex: 10">
-
-      <label for="nomeparceiro2">Nome do Segundo Parceiro</label>
-      <input type="text" class="nomeparceiro2" id="nomeparceiro2" placeholder="Ciclano">
-
-      <label for="parceiro2">% do Segundo Parceiro</label>
-      <input type="number" class="parceiro2" id="parceiro2" placeholder="ex: 5">
+      <label>% do Segundo Parceiro</label>
+      <input type="number" class="parceiro2" placeholder="ex: 5">
     </fieldset>
 
     <button type="submit">Calcular</button>
