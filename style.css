@@ -37,21 +37,37 @@ body {
 
 h1, h2, legend {
   color: var(--primary-color);
-  text-align: center;
   margin-bottom: 20px;
   font-weight: 700;
 }
 
-form {
-  margin-top: 20px;
+fieldset {
+  border: none;
+  margin-bottom: 30px;
+}
+
+legend {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 5px;
+  margin-bottom: 10px;
 }
 
 form label {
   font-weight: 600;
   margin-bottom: 5px;
   display: block;
-  margin-top: 15px;
   color: #555;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.form-row > div {
+  flex: 1;
 }
 
 form input,
@@ -60,7 +76,6 @@ form select {
   font-size: 18px;
   height: 45px;
   padding: 10px 15px;
-  margin-top: 5px;
   border: 1px solid var(--input-border);
   border-radius: var(--border-radius);
   transition: border 0.2s, box-shadow 0.2s;
@@ -81,7 +96,7 @@ form button {
   font-weight: 700;
   height: 50px;
   cursor: pointer;
-  margin-top: 30px;
+  margin-top: 20px;
   border-radius: var(--border-radius);
   transition: background 0.3s ease;
 }
@@ -108,59 +123,8 @@ form button:hover {
   font-size: 16px;
 }
 
-.styledata {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-
-.grid-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 15px;
-}
-
-fieldset {
-  border: 1px solid #ddd;
-  padding: 20px;
-  margin-top: 30px;
-  border-radius: var(--border-radius);
-}
-
-legend {
-  padding: 0 10px;
-  font-size: 18px;
-}
-
-form input[type="number"],
-form input[type="text"] {
-  min-width: 0;
-}
-
 @media (max-width: 700px) {
-  .grid-2, .grid-3 {
-    grid-template-columns: 1fr;
-  }
-
-  .container {
-    margin: 20px;
-    padding: 20px;
-  }
-
-  form input,
-  form select {
-    font-size: 16px;
-    height: 40px;
-  }
-
-  form button {
-    font-size: 16px;
-    height: 45px;
+  .form-row {
+    flex-direction: column;
   }
 }
