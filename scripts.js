@@ -1,171 +1,153 @@
 const form = document.querySelector('.forme');
+
+function formatarMoeda(valor) {
+    return valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+}
+
+function calcularPercentual(valor, percentual) {
+    return (valor * percentual) / 100;
+}
+
+function adicionarZero(numero) {
+    return numero < 10 ? `0${numero}` : numero;
+}
+
+function formatarData(data) {
+    const d = new Date(data);
+    return `${adicionarZero(d.getDate() + 1)}/${adicionarZero(d.getMonth() + 1)}/${d.getFullYear()}`;
+}
+
 function calcular() {
     const resultado = document.querySelector('#resultado');
     const resultadoCliente = document.querySelector('#resultadoCliente');
+    const dados = [];
 
-    const dados = []
-
-    function recebeEventoForm(evento) {
+    form.addEventListener('submit', (evento) => {
         evento.preventDefault();
-        const processo = form.querySelector('.nprocesso').value || '0000.0000';
-        const cliente = form.querySelector('.cliente').value || 'Cliente';
-        const via = form.querySelector('.via').value;
-        const dataDer = form.querySelector('.der').value || new Date().toLocaleDateString();
-        const dataDib = form.querySelector('.dib').value || new Date().toLocaleDateString()
-        const dataDip = form.querySelector('.dip').value || new Date().toLocaleDateString();
-        const valorCausa = parseFloat(form.querySelector('.vcausa').value) || 0;
-        const valorAcao = parseFloat(form.querySelector('.vsentenca').value) || 0;
-        const acao = parseFloat(form.querySelector('.acao').value) || 0;
-        const meses = form.querySelector('.meses').value || 0;
-        const valorMeses = parseFloat(form.querySelector('.vmeses').value) || 0;
-        const desconto = parseFloat(form.querySelector('.desc').value) || 0;
-        const escritorio = parseFloat(form.querySelector('.escritorio').value) || 0;
-        const nomeParceiro = form.querySelector('.nomeparceiro').value || 'Sem parceiro';
-        const parceiro = parseFloat(form.querySelector('.parceiro').value) || 0;
-        const nomeParceiro2 = form.querySelector('.nomeparceiro2').value || 'Sem parceiro';
-        const parceiro2 = parseFloat(form.querySelector('.parceiro2').value) || 0;
+
+        const get = (selector, parseFn = (v) => v) => parseFn(form.querySelector(selector).value) || (parseFn === parseFloat ? 0 : 'Sem valor');
+
+        const processo = get('.nprocesso') || '0000.0000';
+        const cliente = get('.cliente') || 'Cliente';
+        const via = get('.via');
+        const dataDer = get('.der') || new Date().toLocaleDateString();
+        const dataDib = get('.dib') || new Date().toLocaleDateString();
+        const dataDip = get('.dip') || new Date().toLocaleDateString();
+        const valorCausa = get('.vcausa', parseFloat);
+        const valorAcao = get('.vsentenca', parseFloat);
+        const acao = get('.acao', parseFloat);
+        const meses = get('.meses');
+        const valorMeses = get('.vmeses', parseFloat);
+        const desconto = get('.desc', parseFloat);
+        const escritorio = get('.escritorio', parseFloat);
+        const nomeParceiro = get('.nomeparceiro') || 'Sem parceiro';
+        const parceiro = get('.parceiro', parseFloat);
+        const nomeParceiro2 = get('.nomeparceiro2') || 'Sem parceiro';
+        const parceiro2 = get('.parceiro2', parseFloat);
 
         dados.push([
-            processo,
-            cliente,
-            dataDer,
-            dataDib,
-            dataDip,
-            via,
-            valorCausa,
-            valorAcao,
-            acao,
-            meses,
-            valorMeses,
-            escritorio,
-            nomeParceiro,
-            parceiro,
-            nomeParceiro2,
-            parceiro2,
-        ])
-        function divisao(valor, percertual) {
-            const resultado = (valor * percertual) / 100;
-            return resultado
-        }
-        const bruto = (valorAcao * acao) / 100;
-        const bruto2 = bruto + (meses * valorMeses);
-        const liquido = bruto2 - desconto;
-        const liquidoCliente = (valorAcao - liquido).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-        const saldoliq = liquido.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+            processo, cliente, dataDer, dataDib, dataDip, via, valorCausa, valorAcao, acao, meses,
+            valorMeses, escritorio, nomeParceiro, parceiro, nomeParceiro2, parceiro2
+        ]);
 
-        const saldoesc = divisao(liquido, escritorio);
-        const esc = saldoesc.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-        const saldopar = divisao(liquido, parceiro);
-        const par = saldopar.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-        const saldopar2 = divisao(liquido, parceiro2);
-        const par2 = saldopar2.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-        const saldolivre = liquido - (saldoesc + saldopar + saldopar2);
-        const livre = saldolivre.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-        const vcausa = valorCausa.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-        const rmi = valorMeses.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+        const bruto = calcularPercentual(valorAcao, acao);
+        const brutoTotal = bruto + (meses * valorMeses);
+        const liquido = brutoTotal - desconto;
+        const liquidoCliente = formatarMoeda(valorAcao - liquido);
+        const saldoLiquido = formatarMoeda(liquido);
 
+        const saldoEscritorio = calcularPercentual(liquido, escritorio);
+        const saldoParceiro = calcularPercentual(liquido, parceiro);
+        const saldoParceiro2 = calcularPercentual(liquido, parceiro2);
+        const saldoLivre = liquido - (saldoEscritorio + saldoParceiro + saldoParceiro2);
 
-        const vacao = valorAcao.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-        const vdesc = (desconto).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+        const porcentagemLivre = (100 - (escritorio + parceiro + parceiro2)).toFixed(2);
 
-        const pesc = escritorio
-        const ppar = parceiro
-        const ppar2 = parceiro2
-        const plivre = (100 - (escritorio + parceiro + parceiro2)).toFixed(2);
+        const valores = {
+            vcausa: formatarMoeda(valorCausa),
+            vacao: formatarMoeda(valorAcao),
+            vdesc: formatarMoeda(desconto),
+            rmi: formatarMoeda(valorMeses),
+            esc: formatarMoeda(saldoEscritorio),
+            par: formatarMoeda(saldoParceiro),
+            par2: formatarMoeda(saldoParceiro2),
+            livre: formatarMoeda(saldoLivre),
+        };
 
-        // Inicio da conversão de datas
+        const datasFormatadas = {
+            der: formatarData(dataDer),
+            dib: formatarData(dataDib),
+            dip: formatarData(dataDip),
+        };
 
-        function adicionaZero(numero) {
-            if (numero <= 9)
-                return "0" + numero;
-            else
-                return numero;
-        }
-        function converteDatas(data) {
-            const datarec = new Date(data)
-            const datas = ((adicionaZero(datarec.getDate() + 1).toString()) + "/" +
-                (adicionaZero(datarec.getMonth() + 1).toString()) + "/" +
-                datarec.getFullYear());
-            return datas;
-        }
-        const der = converteDatas(dataDer)
-        const dib = converteDatas(dataDib)
-        const dip = converteDatas(dataDip)
-        
-        // Fim da conversão de datas
+        // Exibição para administrador
+        resultado.innerHTML += `
+            <p>N° do processo: <b>${processo}</b></p>
+            <p>Via: ${via}</p>
+            <p>Valor da causa: ${valores.vcausa}</p>
+            <p>Sentença: <b>${valores.vacao}</b></p>
+            <p>Desconto concedido: ${valores.vdesc}</p>
+            <p>${meses} meses de ${valores.rmi}</p>
+            <p>Receber de <b>${cliente}</b>: <b>${saldoLiquido}</b></p>
+            <p>Escritório ${escritorio}%: ${valores.esc}</p>
+            <p>${nomeParceiro} ${parceiro}%: ${valores.par}</p>
+            <p>${nomeParceiro2} ${parceiro2}%: ${valores.par2}</p>
+            <p>Hariana ${porcentagemLivre}%: ${valores.livre}</p>
+            <p>-------------------------------------------------</p>`;
 
-        // Impressão na tela
-        resultado.innerHTML += `<p>N° do processo: <b>${processo}</b></p>`
-        resultado.innerHTML += `<p>Via: ${via}</p>`
-        resultado.innerHTML += `<p>Valor da causa: ${vcausa}</p>`
-        resultado.innerHTML += `<p>Sentença: <b>${vacao}</p>`
-        resultado.innerHTML += `<p>Desconto concedido: ${vdesc}</p>`
-        resultado.innerHTML += `<p>${meses} meses de ${rmi}</p>`
-        resultado.innerHTML += `<p>Receber de <b>${cliente}</b> a quantia de: <b>${saldoliq}</b></p>`
-        resultado.innerHTML += `<p>Escritorio ${escritorio}%: ${esc}</p>`
-        resultado.innerHTML += `<p>${nomeParceiro} ${parceiro}%: ${par}</p>`
-        resultado.innerHTML += `<p>${nomeParceiro2} ${parceiro2}%: ${par2}</p>`
-        resultado.innerHTML += `<p>Hariana ${plivre}%: ${livre}</p>`
-        resultado.innerHTML += `<p>-------------------------------------------------</p>`
-
-        resultadoCliente.innerHTML += `<p>N° do processo: <b>${processo}</b></p>`
-        resultadoCliente.innerHTML += `<p><b>${cliente}</b></p>`
-        resultadoCliente.innerHTML += `<p>Via:${via}</p>`
-        resultadoCliente.innerHTML += `<p>RMI:<b>${rmi}</b></p>`
-        resultadoCliente.innerHTML += `<p>DER:<b>${der}</b></p>`
-        resultadoCliente.innerHTML += `<p>DIB:<b>${dib}</b></p>`
-        resultadoCliente.innerHTML += `<p>DIP:<b>${dip}</b></p>`
-        resultadoCliente.innerHTML += `<p>Valor da causa: ${vcausa}</p>`
-        resultadoCliente.innerHTML += `<p>Sentença: <b>${vacao}</p>`
-        resultadoCliente.innerHTML += `<p>Valor liquido: <b>${liquidoCliente}</p>`
-        resultadoCliente.innerHTML += `<p>Valor escritorio: <b>${saldoliq}</p>`
-        resultadoCliente.innerHTML += `<p>-------------------------------------------------</p>`
-
-    }
-
-    form.addEventListener('submit', recebeEventoForm)
+        // Exibição para cliente
+        resultadoCliente.innerHTML += `
+            <p>N° do processo: <b>${processo}</b></p>
+            <p><b>${cliente}</b></p>
+            <p>Via: ${via}</p>
+            <p>RMI: <b>${valores.rmi}</b></p>
+            <p>DER: <b>${datasFormatadas.der}</b></p>
+            <p>DIB: <b>${datasFormatadas.dib}</b></p>
+            <p>DIP: <b>${datasFormatadas.dip}</b></p>
+            <p>Valor da causa: ${valores.vcausa}</p>
+            <p>Sentença: <b>${valores.vacao}</b></p>
+            <p>Valor líquido: <b>${liquidoCliente}</b></p>
+            <p>Valor escritório: <b>${saldoLiquido}</b></p>
+            <p>-------------------------------------------------</p>`;
+    });
 }
+
 calcular();
 
-
+// Máscara moeda
 String.prototype.reverse = function () {
     return this.split('').reverse().join('');
 };
 
 function mascaraMoeda(campo, evento) {
-    var tecla = (!evento) ? window.event.keyCode : evento.which;
-    var valor = campo.value.replace(/[^\d]+/gi, '').reverse();
-    var resultado = "";
-    var mascara = "########.##".reverse();
-    for (var x = 0, y = 0; x < mascara.length && y < valor.length;) {
-        if (mascara.charAt(x) != '#') {
-            resultado += mascara.charAt(x);
-            x++;
+    const tecla = (!evento) ? window.event.keyCode : evento.which;
+    let valor = campo.value.replace(/[^\d]+/gi, '').reverse();
+    const mascara = "########.##".reverse();
+    let resultado = "";
+
+    for (let x = 0, y = 0; x < mascara.length && y < valor.length;) {
+        if (mascara.charAt(x) !== '#') {
+            resultado += mascara.charAt(x++);
         } else {
-            resultado += valor.charAt(y);
-            y++;
+            resultado += valor.charAt(y++);
             x++;
         }
     }
     campo.value = resultado.reverse();
 }
 
+// Impressão
+function printDIV(id) {
+    let imp = window.open('', 'div', `width=${window.innerWidth},height=${window.innerWidth}`);
+    let estilos = [...document.querySelectorAll("link[rel='stylesheet']")]
+        .map(link => `<link rel="stylesheet" href="${link.href}">`)
+        .join('');
 
-function printDIV(i) {
-    var cssEstilos = '';
-    var imp = window.open('', 'div', 'width=' + window.innerWidth + ',height=' + window.innerWidth);
-
-    var cSs = document.querySelectorAll("link[rel='stylesheet']");
-    for (x = 0; x < cSs.length; x++) {
-        cssEstilos += '<link rel="stylesheet" href="' + cSs[x].href + '">';
-    }
-
-    imp.document.write('<html><head><title>' + document.title + '</title>');
-    imp.document.write(cssEstilos + '</head><body>');
-    imp.document.write(document.getElementById(i).innerHTML);
+    imp.document.write(`<html><head><title>${document.title}</title>${estilos}</head><body>`);
+    imp.document.write(document.getElementById(id).innerHTML);
     imp.document.write('</body></html>');
 
-    setTimeout(function () {
+    setTimeout(() => {
         imp.print();
         imp.close();
     }, 500);
