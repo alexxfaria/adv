@@ -1,151 +1,46 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Cálculo</title>
+    <title>Honorários</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Simulador de Cálculo</h1>
-        <form class="forme">
-
-            <fieldset>
-                <legend>Informações do Processo</legend>
-                <div class="form-row">
-                    <div>
-                        <label>Número do Processo</label>
-                        <input type="text" class="nprocesso" placeholder="0000.0000">
-                    </div>
-                    <div>
-                        <label>Cliente</label>
-                        <input type="text" class="cliente" placeholder="Nome do cliente">
-                    </div>
-                    <div>
-                        <label>Via</label>
-                        <select class="via">
-                            <option value="Administrativa">Administrativa</option>
-                            <option value="Judicial">Judicial</option>
-                        </select>
-                    </div>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>Datas</legend>
-                <div class="form-row">
-                    <div>
-                        <label>DER</label>
-                        <input type="date" class="der">
-                    </div>
-                    <div>
-                        <label>DIB</label>
-                        <input type="date" class="dib">
-                    </div>
-                    <div>
-                        <label>DIP</label>
-                        <input type="date" class="dip">
-                    </div>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>Valores</legend>
-                <div class="form-row">
-                    <div>
-                        <label>Valor da Causa</label>
-                        <input type="text" class="vcausa" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
-                    </div>
-                    <div>
-                        <label>Valor da Sentença</label>
-                        <input type="text" class="vsentenca" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div>
-                        <label>% da Ação</label>
-                        <input type="text" class="acao" placeholder="ex: 30">
-                    </div>
-                    <div>
-                        <label>Desconto</label>
-                        <input type="text" class="desc" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
-                    </div>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>Parcelas</legend>
-                <div class="form-row">
-                    <div>
-                        <label>Quantidade de Meses</label>
-                        <input type="number" class="meses">
-                    </div>
-                    <div>
-                        <label>Valor Mensal</label>
-                        <input type="text" class="vmeses" onkeyup="mascaraMoeda(this, event)">
-                    </div>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>Distribuição</legend>
-                <div class="form-row">
-                    <div>
-                        <label>% Escritório</label>
-                        <input type="number" class="escritorio" placeholder="ex: 30">
-                    </div>
-                    <div>
-                        <label>Nome do Parceiro</label>
-                        <input type="text" class="nomeparceiro" placeholder="Fulano">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div>
-                        <label>% do Parceiro</label>
-                        <input type="number" class="parceiro" placeholder="ex: 10">
-                    </div>
-                    <div>
-                        <label>Nome do Segundo Parceiro</label>
-                        <input type="text" class="nomeparceiro2" placeholder="Ciclano">
-                    </div>
-                    <div>
-                        <label>% do Segundo Parceiro</label>
-                        <input type="number" class="parceiro2" placeholder="ex: 5">
-                    </div>
-                </div>
-            </fieldset>
-
-            <button type="submit">Calcular</button>
+    <section class="container">
+    <form class="forme" action="" method="get">
+        <p>N° do processo: <input type="text" class="nprocesso"></p>
+        <p>Cliente: <input type="text" class="cliente"></p>
+        <p><label for="viaa">Via:</label>
+            <select name="via" id="via" class="via">
+                <option value="Administrativo">Administrativo</option>
+                <option value="Judicial">Judicial</option>
+            </select></p>
+        <div class="styledata"><p>DER: <input type="date" class="der" placeholder="Ex.: dd/mm/aaaa" data-mask="00/00/0000" maxlength="10" autocomplete="off"></p>
+        <p>DIB: <input type="date" class="dib"></p>
+        <p>DIP: <input type="date" class="dip"></p>
+        </div>
+        <div class="styledata"><p>Valor da causa: <input type="number" step=0.01 class="vcausa" onKeyUp="mascaraMoeda(this, event)"></p>
+        <p>Sentença: <input type="number" step=0.01 class="vsentenca" onKeyUp="mascaraMoeda(this, event)"></p>
+        </div>
+        <div class="styledata"><p>% Ação: <input type="number" step=0.01 class="acao" value="30"></p>
+        <p>Meses: <input type="number" class="meses" value="3"></p>
+        <p>Valor meses: <input type="number" class="vmeses" onKeyUp="mascaraMoeda(this, event)"></p>
+        </div>
+        <p>Desconto: <input type="number" step=0.01 class="desc" onKeyUp="mascaraMoeda(this, event)"></p>
+        <p class="styledata">Parceiro: <input type="text" class="nomeparceiro">%<input type="number" step=0.01 class="parceiro" value="50"></p>
+        <p class="styledata">Parceiro: <input type="text" class="nomeparceiro2">%<input type="number" step=0.01 class="parceiro2"></p>
+        <p>% Escritorio: <input type="number" step=0.01 class="escritorio" value="20"></p>
+         <button>Resultado</button>
         </form>
+        <div id="resultado"></div>
+        <div class="styledata"><button onClick="printDIV('resultado')">Imprimir honorarios</button>
+        <div id="resultadoCliente"></div>
+        <button onClick="printDIV('resultadoCliente')">Imprimir Cliente</button>
+        </div>
 
-        <div id="resultado" class="paragrafo-resultado"></div>
-        <div id="resultadoCliente" class="paragrafo-resultado"></div>
-    </div>
-
-    <script>
-        String.prototype.reverse = function () {
-            return this.split('').reverse().join('');
-        };
-
-        function mascaraMoeda(campo, evento) {
-            var tecla = (!evento) ? window.event.keyCode : evento.which;
-            var valor = campo.value.replace(/[^\d]+/gi, '').reverse();
-            var resultado = "";
-            var mascara = "########.##".reverse();
-            for (var x = 0, y = 0; x < mascara.length && y < valor.length;) {
-                if (mascara.charAt(x) != '#') {
-                    resultado += mascara.charAt(x);
-                    x++;
-                } else {
-                    resultado += valor.charAt(y);
-                    y++;
-                    x++;
-                }
-            }
-            campo.value = resultado.reverse();
-        }
-    </script>
+        </section>
+    <script src="./scripts.js"></script>
 </body>
 </html>
