@@ -1,105 +1,151 @@
-<div class="container">
-  <h1>Simulador de Cálculo</h1>
-  <form class="forme">
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Cálculo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Simulador de Cálculo</h1>
+        <form class="forme">
 
-    <fieldset>
-      <legend>Informações do Processo</legend>
-      <label>Número do Processo</label>
-      <input type="text" class="nprocesso" placeholder="0000.0000">
+            <fieldset>
+                <legend>Informações do Processo</legend>
+                <div class="form-row">
+                    <div>
+                        <label>Número do Processo</label>
+                        <input type="text" class="nprocesso" placeholder="0000.0000">
+                    </div>
+                    <div>
+                        <label>Cliente</label>
+                        <input type="text" class="cliente" placeholder="Nome do cliente">
+                    </div>
+                    <div>
+                        <label>Via</label>
+                        <select class="via">
+                            <option value="Administrativa">Administrativa</option>
+                            <option value="Judicial">Judicial</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
 
-      <label>Cliente</label>
-      <input type="text" class="cliente" placeholder="Nome do cliente">
+            <fieldset>
+                <legend>Datas</legend>
+                <div class="form-row">
+                    <div>
+                        <label>DER</label>
+                        <input type="date" class="der">
+                    </div>
+                    <div>
+                        <label>DIB</label>
+                        <input type="date" class="dib">
+                    </div>
+                    <div>
+                        <label>DIP</label>
+                        <input type="date" class="dip">
+                    </div>
+                </div>
+            </fieldset>
 
-      <label>Via</label>
-      <select class="via">
-        <option value="Administrativa">Administrativa</option>
-        <option value="Judicial">Judicial</option>
-      </select>
-    </fieldset>
+            <fieldset>
+                <legend>Valores</legend>
+                <div class="form-row">
+                    <div>
+                        <label>Valor da Causa</label>
+                        <input type="text" class="vcausa" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
+                    </div>
+                    <div>
+                        <label>Valor da Sentença</label>
+                        <input type="text" class="vsentenca" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label>% da Ação</label>
+                        <input type="text" class="acao" placeholder="ex: 30">
+                    </div>
+                    <div>
+                        <label>Desconto</label>
+                        <input type="text" class="desc" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
+                    </div>
+                </div>
+            </fieldset>
 
-    <fieldset>
-      <legend>Datas</legend>
-      <div class="grid-3">
-        <div>
-          <label>DER</label>
-          <input type="date" class="der">
-        </div>
-        <div>
-          <label>DIB</label>
-          <input type="date" class="dib">
-        </div>
-        <div>
-          <label>DIP</label>
-          <input type="date" class="dip">
-        </div>
-      </div>
-    </fieldset>
+            <fieldset>
+                <legend>Parcelas</legend>
+                <div class="form-row">
+                    <div>
+                        <label>Quantidade de Meses</label>
+                        <input type="number" class="meses">
+                    </div>
+                    <div>
+                        <label>Valor Mensal</label>
+                        <input type="text" class="vmeses" onkeyup="mascaraMoeda(this, event)">
+                    </div>
+                </div>
+            </fieldset>
 
-    <fieldset>
-      <legend>Valores</legend>
-      <label>Valor da Causa</label>
-      <input type="text" class="vcausa" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
+            <fieldset>
+                <legend>Distribuição</legend>
+                <div class="form-row">
+                    <div>
+                        <label>% Escritório</label>
+                        <input type="number" class="escritorio" placeholder="ex: 30">
+                    </div>
+                    <div>
+                        <label>Nome do Parceiro</label>
+                        <input type="text" class="nomeparceiro" placeholder="Fulano">
+                    </div>
+                </div>
 
-      <label>Valor da Sentença</label>
-      <input type="text" class="vsentenca" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
+                <div class="form-row">
+                    <div>
+                        <label>% do Parceiro</label>
+                        <input type="number" class="parceiro" placeholder="ex: 10">
+                    </div>
+                    <div>
+                        <label>Nome do Segundo Parceiro</label>
+                        <input type="text" class="nomeparceiro2" placeholder="Ciclano">
+                    </div>
+                    <div>
+                        <label>% do Segundo Parceiro</label>
+                        <input type="number" class="parceiro2" placeholder="ex: 5">
+                    </div>
+                </div>
+            </fieldset>
 
-      <div class="grid-2">
-        <div>
-          <label>% da Ação</label>
-          <input type="text" class="acao" placeholder="ex: 30">
-        </div>
-        <div>
-          <label>Desconto</label>
-          <input type="text" class="desc" onkeyup="mascaraMoeda(this, event)" placeholder="0,00">
-        </div>
-      </div>
-    </fieldset>
+            <button type="submit">Calcular</button>
+        </form>
 
-    <fieldset>
-      <legend>Parcelas</legend>
-      <div class="grid-2">
-        <div>
-          <label>Quantidade de Meses</label>
-          <input type="number" class="meses">
-        </div>
-        <div>
-          <label>Valor Mensal</label>
-          <input type="text" class="vmeses" onkeyup="mascaraMoeda(this, event)">
-        </div>
-      </div>
-    </fieldset>
+        <div id="resultado" class="paragrafo-resultado"></div>
+        <div id="resultadoCliente" class="paragrafo-resultado"></div>
+    </div>
 
-    <fieldset>
-      <legend>Distribuição</legend>
-      <div class="grid-2">
-        <div>
-          <label>% Escritório</label>
-          <input type="number" class="escritorio" placeholder="ex: 30">
-        </div>
-        <div>
-          <label>Nome do Parceiro</label>
-          <input type="text" class="nomeparceiro" placeholder="Fulano">
-        </div>
-      </div>
+    <script>
+        String.prototype.reverse = function () {
+            return this.split('').reverse().join('');
+        };
 
-      <div class="grid-2">
-        <div>
-          <label>% do Parceiro</label>
-          <input type="number" class="parceiro" placeholder="ex: 10">
-        </div>
-        <div>
-          <label>Nome do Segundo Parceiro</label>
-          <input type="text" class="nomeparceiro2" placeholder="Ciclano">
-        </div>
-      </div>
-
-      <label>% do Segundo Parceiro</label>
-      <input type="number" class="parceiro2" placeholder="ex: 5">
-    </fieldset>
-
-    <button type="submit">Calcular</button>
-  </form>
-
-  <div id="resultado" class="paragrafo-resultado"></div>
-  <div id="resultadoCliente" class="paragrafo-resultado"></div>
-</div>
+        function mascaraMoeda(campo, evento) {
+            var tecla = (!evento) ? window.event.keyCode : evento.which;
+            var valor = campo.value.replace(/[^\d]+/gi, '').reverse();
+            var resultado = "";
+            var mascara = "########.##".reverse();
+            for (var x = 0, y = 0; x < mascara.length && y < valor.length;) {
+                if (mascara.charAt(x) != '#') {
+                    resultado += mascara.charAt(x);
+                    x++;
+                } else {
+                    resultado += valor.charAt(y);
+                    y++;
+                    x++;
+                }
+            }
+            campo.value = resultado.reverse();
+        }
+    </script>
+</body>
+</html>
